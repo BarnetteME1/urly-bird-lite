@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from url_short.views import index_view, UrlList
 
 urlpatterns = [
+    url(r'^$', index_view),
+    url(r'^urls/$', UrlList.as_view(), name='url_list'),
     url(r'^admin/', include(admin.site.urls)),
 ]
