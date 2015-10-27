@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    <h6>listview</h6>
+    {% for url in object_list %}
+        {{ url.title }}<br><br><a href="{% url 'url_link' url.id %}"> {{ url.url }} </a><br><br>{{ url.description }}<br><br>{{ url.shorten_length }}
+        {% comment %}
+        {% if request.user.id %}
+            <form action="{% url 'url_link' url.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="link"/>
+            </form>
+        {% endif %}
+        {% endcomment %}
+    {% endfor %}
 {% endblock %}
