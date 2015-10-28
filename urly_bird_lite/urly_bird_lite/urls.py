@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from url_short.views import index_view, UrlList, UrlCreateView, UrlLinkView
+from django.contrib.auth.decorators import login_required
+from url_short.views import index_view, UrlList, UrlCreateView, UrlLinkView, GetLinkView
 
 urlpatterns = [
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', index_view),
     url(r'^urls/$', UrlList.as_view(), name='url_list'),
-    url(r'^create/$', UrlCreateView.as_view(), name='url_create'),
+    url(r'^create/$', login_required(UrlCreateView.as_view()), name='url_create'),
     url(r'^urllink/(?P<url_id>\d+)/$', UrlLinkView.as_view(), name="url_link"),
+    url(r'r/(?P<url_id>\w+/$)', GetLinkView.as_view(), name='short_url'),
     url(r'^admin/', include(admin.site.urls)),
 ]

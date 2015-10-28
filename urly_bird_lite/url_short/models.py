@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-import hashlib
-import random
 
 # Create your models here.
 
@@ -12,15 +10,11 @@ class UrlBank(models.Model):
     description = models.TextField(blank=True)
     user = models.ForeignKey(User)
     short_url = models.CharField(max_length=50, blank=True)
-
-    @property
-    def shorten_length(self):
-        url = self.url
-        url = bytes(url, encoding="ascii")
-        m = hashlib.md5()
-        m.update(url)
-        return (m.hexdigest())[:random.randint(5, 32)]
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['-created']
+        unique_together = ('url', 'user')
