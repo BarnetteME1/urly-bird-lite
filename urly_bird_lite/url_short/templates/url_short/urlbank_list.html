@@ -6,7 +6,7 @@
         {{ url.title }}<br><br>
         {{ url.url }} <br><br>
         {{ url.description }}<br><br>
-        SHORTURL = {{ url.short_url }}
+        SHORTURL = localhost:8000/r/{{ url.short }}
         {% if request.user.id %}
             <form action="{% url 'url_link' url.id %}" method="post">
                 {% csrf_token %}

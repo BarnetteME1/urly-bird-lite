@@ -9,7 +9,7 @@ class UrlBank(models.Model):
     url = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     user = models.ForeignKey(User)
-    short_url = models.CharField(max_length=50, blank=True)
+    short = models.CharField(max_length=32, blank=True, unique=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

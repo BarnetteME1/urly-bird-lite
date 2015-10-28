@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^urls/$', UrlList.as_view(), name='url_list'),
     url(r'^create/$', login_required(UrlCreateView.as_view()), name='url_create'),
     url(r'^urllink/(?P<url_id>\d+)/$', UrlLinkView.as_view(), name="url_link"),
-    url(r'r/(?P<url_id>\w+/$)', GetLinkView.as_view(), name='short_url'),
+   #url(r'^c/(?P<bookmark_shortcut>.+)/$', ClickShortcut.as_view(), name="click_shortcut"),
+    url(r'^r/(?P<short>.+/$)', GetLinkView.as_view(), name='short_url'),
     url(r'^admin/', include(admin.site.urls)),
 ]
