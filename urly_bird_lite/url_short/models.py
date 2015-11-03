@@ -18,3 +18,8 @@ class UrlBank(models.Model):
     class Meta:
         ordering = ['-created']
         unique_together = ('url', 'user')
+
+class ClickCount(models.Model):
+    user = models.ForeignKey(User)
+    link = models.ForeignKey(UrlBank)
+    clicked = models.DateTimeField(auto_now_add=True)

@@ -20,6 +20,7 @@ from url_short.views import UrlList, UrlCreateView, UrlLinkView, GetLinkView, Us
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^api/', include('urly_api.urls')),
     url(r'^$', UrlList.as_view(), name='url_list'),
     url(r'^(?P<pk>\d+)/$', UrlUserList.as_view(), name='user_list'),
     url(r'^create_user/$', UserCreateView.as_view(), name='user_create'),
