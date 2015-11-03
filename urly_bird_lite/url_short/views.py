@@ -15,6 +15,13 @@ from url_short.models import UrlBank
 class UrlList(ListView):
     model = UrlBank
 
+class UrlUserList(ListView):
+    model = UrlBank
+
+    def get_queryset(self):
+        user = self.kwargs.get('pk')
+        return self.model.objects.filter(user__id=user)
+
 
 class UrlCreateView(CreateView):
     model = UrlBank

@@ -35,6 +35,7 @@
               <li><a href="{% url 'user_create' %}">Create Account</a></li>
           {% else %}
               <li><a href="{% url 'url_create' %}">create shortened url</a></li>
+              <li><a href="{% url 'user_list' user.id %}">Your Links</a></li>
               <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
               {% comment %}
               <li><a href="">{{ request.user.username }}</a></li>

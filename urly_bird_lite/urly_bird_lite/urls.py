@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from url_short.views import UrlList, UrlCreateView, UrlLinkView, GetLinkView, UserCreateView
+from url_short.views import UrlList, UrlCreateView, UrlLinkView, GetLinkView, UserCreateView, UrlUserList
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', UrlList.as_view(), name='url_list'),
+    url(r'^(?P<pk>\d+)/$', UrlUserList.as_view(), name='user_list'),
     url(r'^create_user/$', UserCreateView.as_view(), name='user_create'),
     url(r'^create/$', login_required(UrlCreateView.as_view()), name='url_create'),
     url(r'^url_link/(?P<url_id>\d+)/$', UrlLinkView.as_view(), name="url_link"),
