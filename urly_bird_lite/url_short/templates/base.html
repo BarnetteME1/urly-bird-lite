@@ -32,6 +32,7 @@
           <li><a href="{% url 'url_list' %}">url list</a></li>
           {% if not request.user.id %}
               <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'user_create' %}">Create Account</a></li>
           {% else %}
               <li><a href="{% url 'url_create' %}">create shortened url</a></li>
               <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
