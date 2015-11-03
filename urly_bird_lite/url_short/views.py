@@ -33,6 +33,8 @@ class UrlCreateView(CreateView):
 
 
 class UrlLinkView(View):
+
+
     def post(self, request, url_id):
         url = UrlBank.objects.get(id=url_id)
         UrlBank.objects.create(user=request.user, url=url)
