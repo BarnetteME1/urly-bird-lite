@@ -1,17 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h6>listview</h6>
     {% for url in object_list %}
-        {{ url.title }}<br><br>
-        {{ url.url }} <br><br>
-        {{ url.description }}<br><br>
-        SHORTURL = localhost:8000/r/{{ url.short }}
-        {% if request.user.id %}
-            <form action="{% url 'url_link' url.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="link"/>
-            </form>
-        {% endif %}
+        Title: {{ url.title }}<br><br>
+        Original url: {{ url.url }} <br>
+        Shr.tn url = localhost:8000/Shr.tn/{{ url.short }}<br><br>
+        Description: <br> {{ url.description }}<br><br><br><br>
     {% endfor %}
 {% endblock %}

@@ -1,3 +1,6 @@
+import datetime
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 import hashlib
@@ -9,31 +12,27 @@ from django.views.generic import ListView, CreateView, View
 from url_short.models import UrlBank
 
 
-def index_view(request):
-    context={}
-    return render_to_response('base.html', context=context)
-
-
 class UrlList(ListView):
     model = UrlBank
 
 
 class UrlCreateView(CreateView):
     model = UrlBank
-    fields = ['title', 'user', 'url', 'description']
-    success_url = '/urls'
+    fields = ['title', 'url', 'description']
+    success_url = '/'
 
     def form_valid(self, form):
         model = form.save(commit=False)
-        url = bytes(model.url, encoding="ascii")
+        model.user = self.request.user
+        urllink = ("{}{}{}".format(model.url, model.user, datetime.datetime.now().strftime("%f")))
+        urllink = bytes(urllink, encoding="ascii")
         m = hashlib.md5()
-        m.update(url)
+        m.update(urllink)
         model.short = (m.hexdigest())[:random.randint(5, 9)]
         return super().form_valid(form)
 
 
 class UrlLinkView(View):
-
 
     def post(self, request, url_id):
         url = UrlBank.objects.get(id=url_id)
@@ -45,5 +44,10 @@ class GetLinkView(View):
 
     def get(self, request, short):
         short = short[:-1]
-        url = UrlBank.objects.get(short=short)
-        return HttpResponseRedirect(url.url)
+        urlitem = UrlBank.objects.get(short=short)
+        return HttpResponseRedirect(urlitem.url)
+
+class UserCreateView(CreateView):
+    model = User
+    form_class = UserCreationForm
+    success_url ='/'
