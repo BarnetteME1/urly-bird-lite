@@ -26,6 +26,6 @@ class UrlBank(models.Model):
 
 
 class ClickCount(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True, blank=True)
     link = models.ForeignKey(UrlBank)
     clicked = models.DateTimeField(auto_now_add=True)

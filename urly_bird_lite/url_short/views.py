@@ -9,7 +9,7 @@ import random
 
 
 # Create your views here.
-from django.views.generic import ListView, CreateView, View
+from django.views.generic import ListView, CreateView, View, UpdateView
 from url_short.models import UrlBank, ClickCount
 from numpy import unicode
 from rest_framework.authentication import BasicAuthentication
@@ -32,6 +32,19 @@ class UrlUserList(ListView):
         user = self.kwargs.get('pk')
         return self.model.objects.filter(user__id=user)
 
+class UrlUpdateView(UpdateView):
+    model = UrlBank
+    fields = ['title', 'description']
+
+    def get_success_url(self):
+        return HttpResponseRedirect('url_list')
+
+class DeleteFromUrlView(View):
+
+    def post(self, request, urlbank_id):
+        url = UrlBank.objects.get(id=urlbank_id)
+        url.delete()
+        return HttpResponseRedirect(reverse("url_list"))
 
 class UrlCreateView(CreateView):
     model = UrlBank
