@@ -22,6 +22,9 @@ from rest_framework.views import APIView
 class UrlList(ListView):
     model = UrlBank
 
+class UserList(ListView):
+    model = User
+
 class UrlUserList(ListView):
     model = UrlBank
 

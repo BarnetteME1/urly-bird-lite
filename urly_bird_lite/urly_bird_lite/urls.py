@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from url_short.views import UrlList, UrlCreateView, UrlLinkView, GetLinkView, UserCreateView, UrlUserList
+from url_short.views import UrlList, UrlCreateView, UrlLinkView, GetLinkView, UserCreateView, UrlUserList, UserList
 from rest_framework.authtoken import views
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^api/', include('urly_api.urls')),
+    url(r'^users/$', UserList.as_view(), name='user_list'),
     url(r'^$', UrlList.as_view(), name='url_list'),
     url(r'^(?P<pk>\d+)/$', UrlUserList.as_view(), name='user_list'),
     url(r'^create_user/$', UserCreateView.as_view(), name='user_create'),

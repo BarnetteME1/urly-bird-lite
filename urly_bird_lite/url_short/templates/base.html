@@ -29,12 +29,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-          <li><a href="{% url 'url_list' %}">url list</a></li>
+          <li><a href="{% url 'url_list' %}">URL List</a></li>
+          <li><a href="{% url 'user_list' %}">User List</a></li>
           {% if not request.user.id %}
               <li><a href="{% url 'login' %}">Login</a></li>
               <li><a href="{% url 'user_create' %}">Create Account</a></li>
           {% else %}
-              <li><a href="{% url 'url_create' %}">create shortened url</a></li>
+              <li><a href="{% url 'url_create' %}">Create Shortened URL</a></li>
               <li><a href="{% url 'user_list' user.id %}">Your Links</a></li>
               <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
               {% comment %}
