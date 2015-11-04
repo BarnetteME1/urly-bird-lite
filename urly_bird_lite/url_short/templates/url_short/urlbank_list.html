@@ -4,7 +4,12 @@
     {% for url in object_list %}
         Title: {{ url.title }}<br><br>
         Original url: {{ url.url }} <br>
-        Shr.tn url = localhost:8000/Shr.tn/{{ url.short }}<br><br>
+        <form action="{% url 'short_url' url.short %}" method="post">
+        {% csrf_token %}
+        Shr.tn url = localhost:8000/Shr.tn/{{ url.short }}
+        <input type="submit" value="Link"/>
+        </form>
+        {{ url.count }}<br><br>
         Description: <br> {{ url.description }}<br><br><br><br>
     {% endfor %}
 {% endblock %}
